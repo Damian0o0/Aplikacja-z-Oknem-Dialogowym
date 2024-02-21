@@ -1,0 +1,67 @@
+﻿<Window x:Class="SetBooks.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SetBooks"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="600">
+        
+    <Grid>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top" FontSize="15">
+                <MenuItem Header="Plik">
+                    <MenuItem  x:Name="Load" Click="Load_Click" Header="Otwórz">
+                        <MenuItem.Icon>
+                            <Image Source="/open.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem  x:Name="Save" Click="Save_Click"  Header="Zapisz"/>
+                    <MenuItem x:Name="Exit" Click="Exit_Click" Header="Zamknij"/>
+                </MenuItem>
+                <MenuItem Header="Edycja">
+                    <MenuItem x:Name="AddBook" Click="AddBook_Click" Header="Dodaj"/>
+                    <MenuItem x:Name="EditBook" Click="EditBook_Click" Header="Zmień"/>
+                    <MenuItem x:Name="DeleteBook" Click="DeleteBook_Click" Header="Usuń"/>
+                </MenuItem>
+            </Menu>
+            <TextBlock DockPanel.Dock="Top" FontSize="20">Lista Książek:</TextBlock>
+            <ListBox x:Name="pListBox" Grid.Column="1" Background="Red">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Padding" Value="5"/>
+                        <Setter Property="Foreground" Value="DarkGoldenrod"/>
+                        <Style.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="True"/>
+                                    <Condition Property="IsFocused" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Foreground" Value="DarkRed"/>
+                                <Setter Property="FontSize" Value="15"/>
+                            </MultiTrigger>
+                            <DataTrigger Binding="{Binding Path=Education}" Value="Pierwsza">
+                                <Setter Property="Background" Value="Bisque"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=Education}" Value="Druga">
+                                <Setter Property="Background" Value="LightBlue"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=Education}" Value="Trzecia">
+                                <Setter Property="Background" Value="LightGoldenrodYellow"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="itemTitle" Text="{Binding Title}" Width="100"/>
+                            <TextBlock x:Name="itemAutor" Text="{Binding Autor}" Width="100"/>
+                            <TextBlock x:Name="itemEdu" Text="{Binding Education}" Width="100"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DockPanel>
+    </Grid>
+</Window>
